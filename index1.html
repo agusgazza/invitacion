@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 Una Invitación Especial 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        h1 {
+            color: #6366f1;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+
+        .emoji {
+            font-size: 4em;
+            margin: 20px 0;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .button {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            font-size: 1.3em;
+            padding: 20px 50px;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.5);
+        }
+
+        .btn-no {
+            background: #e5e7eb;
+            color: #6b7280;
+            position: relative;
+        }
+
+        .buttons-container {
+            margin-top: 30px;
+            position: relative;
+            min-height: 100px;
+        }
+
+        /* Quiz Styles */
+        .quiz-question {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quiz-option {
+            padding: 15px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .date-input-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .date-input {
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 300px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .date-submit-btn {
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .date-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .date-submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .date-feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .date-feedback.correct {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .date-feedback.incorrect {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .score {
+            font-size: 1.3em;
+            color: #667eea;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        /* Minesweeper Styles */
+        .minesweeper-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+            margin: 20px auto;
+            max-width: 300px;
+            background: #d1d5db;
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .mine-cell {
+            aspect-ratio: 1;
+            background: #9ca3af;
+            border: 2px outset #b0b0b0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            user-select: none;
+            transition: all 0.1s;
+        }
+
+        .mine-cell:hover:not(.revealed):not(.flagged) {
+            background: #a8aeb5;
+        }
+
+        .mine-cell.revealed {
+            background: #e5e7eb;
+            border: 1px solid #d1d5db;
+            cursor: default;
+        }
+
+        .mine-cell.flagged {
+            background: #fbbf24;
+        }
+
+        .mine-cell.mine {
+            background: #ef4444;
+        }
+
+        .mine-cell.safe {
+            background: #d1fae5;
+        }
+
+        .mine-number-1 { color: #3b82f6; }
+        .mine-number-2 { color: #10b981; }
+        .mine-number-3 { color: #ef4444; }
+        .mine-number-4 { color: #8b5cf6; }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            color: #667eea;
+        }
+
+        .date-info {
+            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .date-info h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .date-item {
+            margin: 10px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .date-item span {
+            font-size: 1.5em;
+        }
+
+        .growing-emoji {
+            font-size: 3em;
+            transition: font-size 0.3s ease;
+        }
+
+        .attempts-counter {
+            font-size: 0.9em;
+            color: #6b7280;
+            margin-top: 15px;
+        }
+
+        /* Celebration Effects */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 1000;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .firework {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            z-index: 999;
+        }
+
+        @keyframes firework-burst {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y));
+                opacity: 0;
+            }
+        }
+
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 998;
+        }
+
+        .reset-quiz {
+            background: #ef4444;
+            color: white;
+            font-size: 0.9em;
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+
+        .retry-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="celebration-overlay" id="celebrationOverlay"></div>
+    
+    <div class="container">
+        <!-- Pantalla 1: Inicio -->
+        <div class="screen active" id="screen1">
+            <div class="card">
+                <div class="emoji">💌</div>
+                <h1>Hola gordi, te tengo una propuesta</h1>
+                <p>Pero primero tenes que jugar 😊 </p>
+                <button class="button btn-primary" onclick="goToScreen(2)">Tocame</button>
+            </div>
+        </div>
+
+        <!-- Pantalla 2: Introducción al Quiz -->
+        <div class="screen" id="screen2">
+            <div class="card">
+                <div class="emoji">🎯</div>
+                <h1>Preguntas de Agus Gazza</h1>
+                <p>Responde bien flaca</p>
+                <p style="font-size: 0.95em; color: #ef4444; font-weight: 600;">⚠️ Tienes que responder las 3 correctamente para continuar</p>
+                <button class="button btn-primary" onclick="startQuiz()">Acepto el desafío</button>
+            </div>
+        </div>
+
+        <!-- Pantalla 3: Quiz -->
+        <div class="screen" id="screen3">
+            <div class="card">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="quizProgress"></div>
+                </div>
+                <div class="score">
+                    <span id="correctCount">0</span>/3 correctas | 
+                    Pregunta <span id="currentQ">1</span> de 3
+                </div>
+                <div id="quizContainer"></div>
+                <div id="retryMessage"></div>
+            </div>
+        </div>
+
+        <!-- Pantalla 4: Transición al Buscaminas -->
+        <div class="screen" id="screen4">
+            <div class="card">
+                <div class="emoji">👏</div>
+                <h1>TEAMOO</h1>
+                <p>Cuantas veces habras errado...</p>
+                <p>Ahora un jueguito mas</p>
+                <button class="button btn-primary" onclick="goToScreen(5)">Que rompebolas...</button>
+            </div>
+        </div>
+
+        <!-- Pantalla 5: Buscaminas -->
+        <div class="screen" id="screen5">
+            <div class="card">
+                <h1>Buscaminas 💣</h1>
+                <p style="font-size: 0.95em;">Click izquierdo = revelar | Click derecho = marcar bandera</p>
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="minesLeft">5</div>
+                        <div>Minas restantes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="safeCells">0/31</div>
+                        <div>Celdas seguras</div>
+                    </div>
+                </div>
+                <div class="minesweeper-grid" id="minesweeperGrid"></div>
+                <button class="button btn-primary" onclick="initMinesweeper()" style="margin-top: 20px;">🔄 Nuevo juego</button>
+            </div>
+        </div>
+
+        <!-- Pantalla 6: Transición -->
+        <div class="screen" id="screen6">
+            <div class="card">
+                <div class="emoji">🎮</div>
+                <h1>Te amo, perdon re dificil lo hacia el</h1>
+                <p>Bueno ahora si ya terminaste</p>
+                <p>Ahora mi propuesta, no pongas que no</p>
+                <button class="button btn-primary" onclick="goToScreen(7)">Dale</button>
+            </div>
+        </div>
+
+        <!-- Pantalla 7: La Pregunta -->
+        <div class="screen" id="screen7">
+            <div class="card">
+                <div class="emoji growing-emoji" id="growingEmoji">😊</div>
+                <h1>¿Queres salir conmigo en San Valentín?</h1>
+                <p>No pongas que no o me MATOO</p>
+                <div class="buttons-container">
+                    <button class="button btn-yes" onclick="celebrate()">TEAMO💕</button>
+                    <button class="button btn-no" id="noButton" onmouseover="moveButton()" onclick="moveButton()">No, gracias</button>
+                </div>
+                <p class="attempts-counter">Intentos de escape: <span id="attempts">0</span></p>
+            </div>
+        </div>
+
+        <!-- Pantalla 8: Celebración -->
+        <div class="screen" id="screen8">
+            <div class="card">
+                <div class="emoji">🎊</div>
+                <h1>Y si, era obvio</h1>
+                <p style="font-size: 1.3em;">TE AMO 💝</p>
+                <button class="button btn-primary" onclick="goToScreen(9)">Ver los detalles</button>
+            </div>
+        </div>
+
+        <!-- Pantalla 9: Info de la cita -->
+        <div class="screen" id="screen9">
+            <div class="card">
+                <h1>Plan para San Valentín 💝</h1>
+                
+                <div class="date-info">
+                    <h3>Detalles importantes:</h3>
+                    
+                    <div class="date-item">
+                        <span>📅</span>
+                        <div>
+                            <strong>Cuándo:</strong><br>
+                            Viernes 14 de Febrero, 2026
+                        </div>
+                    </div>
+                    
+                    <div class="date-item">
+                        <span>🕐</span>
+                        <div>
+                            <strong>Hora:</strong><br>
+                            Te busco a las 19/19:30
+                        </div>
+                    </div>
+                    
+                    <div class="date-item">
+                        <span>📍</span>
+                        <div>
+                            <strong>Dónde:</strong><br>
+                            KANSAS<br>
+                            <small style="color: #6b7280;">Con posibilidad de cambio si la dama asi lo desea</small>
+                        </div>
+                    </div>
+                    
+                    <div class="date-item">
+                        <span>👕</span>
+                        <div>
+                            <strong>Qué ponerte:</strong><br>
+                            Toda cute y hot, como siempre
+                        </div>
+                    </div>
+                    
+                    <div class="date-item">
+                        <span>🎒</span>
+                        <div>
+                            <strong>Qué traer:</strong><br>
+                            Hambre y ganas de ponerte bien en pedo
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; font-size: 1.1em;">
+                    Nos vemos 😉
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data - PERSONALIZA AQUÍ TUS PREGUNTAS
+        const quizQuestions = [
+            {
+                question: "¿Cual son mis personajes favoritos de The 100 actualmente? (Ni yo se muy bien)",
+                options: ["Bellamy y Raven", "Echo y Murphy", "Diyoza e Indra", "Emori y Gabriel"],
+                correct: 1, // Cambia según tu respuesta
+                type: "multiple" // Tipo de pregunta
+            },
+            {
+                question: "¿Cuanto te amo del 1 al 10?",
+                options: ["0", "10", "7,50", "3,3333", "Infinito"],
+                correct: 4, // Cambia según tu respuesta
+                type: "multiple"
+            },
+            {
+                question: "¿Cuándo fue nuestra primera conversación de Instagram? (Acá la hago más difícil, laburá)",
+                type: "date", // Tipo datepicker
+                correctDate: "2024-11-30" // CAMBIA ESTO a la fecha correcta en formato YYYY-MM-DD
+            }
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        let attempts = 0;
+        let emojiSize = 3;
+
+        // Minesweeper
+        let grid = [];
+        let mineCount = 5;
+        let gridSize = 6;
+        let revealedCount = 0;
+        let flaggedCount = 0;
+        let gameOver = false;
+
+        function goToScreen(screenNumber) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('screen' + screenNumber).classList.add('active');
+            
+            if (screenNumber === 5) {
+                initMinesweeper();
+            }
+        }
+
+        function startQuiz() {
+            currentQuestion = 0;
+            correctAnswers = 0;
+            goToScreen(3);
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = quizQuestions[currentQuestion];
+            const container = document.getElementById('quizContainer');
+            
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            document.getElementById('correctCount').textContent = correctAnswers;
+            document.getElementById('quizProgress').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
+            
+            if (q.type === "date") {
+                // Pregunta con datepicker
+                let html = `
+                    <div class="quiz-question">
+                        <h2>${q.question}</h2>
+                        <div class="date-input-container">
+                            <input type="date" id="dateInput" class="date-input" />
+                            <br>
+                            <button class="date-submit-btn" onclick="submitDateAnswer()">Confirmar fecha</button>
+                            <div id="dateFeedback"></div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML = html;
+            } else {
+                // Pregunta de opción múltiple
+                let html = `
+                    <div class="quiz-question">
+                        <h2>${q.question}</h2>
+                        <div class="quiz-options">
+                `;
+                
+                q.options.forEach((option, index) => {
+                    html += `<div class="quiz-option" onclick="selectAnswer(${index})">${option}</div>`;
+                });
+                
+                html += `</div></div>`;
+                container.innerHTML = html;
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            const q = quizQuestions[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach(option => option.classList.add('disabled'));
+            
+            if (selectedIndex === q.correct) {
+                options[selectedIndex].classList.add('correct');
+                correctAnswers++;
+                document.getElementById('correctCount').textContent = correctAnswers;
+                
+                setTimeout(() => {
+                    currentQuestion++;
+                    if (currentQuestion < quizQuestions.length) {
+                        showQuestion();
+                    } else {
+                        // Completó todas las preguntas correctamente
+                        goToScreen(4);
+                    }
+                }, 1000);
+            } else {
+                options[selectedIndex].classList.add('incorrect');
+                options[q.correct].classList.add('correct');
+                
+                setTimeout(() => {
+                    // Mostrar mensaje de reinicio
+                    document.getElementById('retryMessage').innerHTML = `
+                        <div class="retry-message">
+                            ❌ ¡Ups! Respuesta incorrecta. Tienes que responder las 3 bien.
+                            <br><button class="button reset-quiz" onclick="startQuiz()">Reintentar desde el inicio</button>
+                        </div>
+                    `;
+                }, 1500);
+            }
+        }
+
+        function submitDateAnswer() {
+            const dateInput = document.getElementById('dateInput');
+            const selectedDate = dateInput.value;
+            const feedback = document.getElementById('dateFeedback');
+            const q = quizQuestions[currentQuestion];
+            const submitBtn = document.querySelector('.date-submit-btn');
+            
+            if (!selectedDate) {
+                feedback.innerHTML = '<div class="date-feedback incorrect">⚠️ Por favor selecciona una fecha</div>';
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            dateInput.disabled = true;
+            
+            if (selectedDate === q.correctDate) {
+                feedback.innerHTML = '<div class="date-feedback correct">✅ ¡Correcto! Buena memoria 😊</div>';
+                correctAnswers++;
+                document.getElementById('correctCount').textContent = correctAnswers;
+                
+                setTimeout(() => {
+                    currentQuestion++;
+                    if (currentQuestion < quizQuestions.length) {
+                        showQuestion();
+                    } else {
+                        // Completó todas las preguntas correctamente
+                        goToScreen(4);
+                    }
+                }, 1500);
+            } else {
+                feedback.innerHTML = '<div class="date-feedback incorrect">❌ Fecha incorrecta. ¡Necesitas recordar mejor!</div>';
+                
+                setTimeout(() => {
+                    document.getElementById('retryMessage').innerHTML = `
+                        <div class="retry-message">
+                            ❌ Fecha incorrecta. Tienes que responder las 3 bien.
+                            <br><button class="button reset-quiz" onclick="startQuiz()">Reintentar desde el inicio</button>
+                        </div>
+                    `;
+                }, 1500);
+            }
+        }
+
+        // MINESWEEPER GAME
+        function initMinesweeper() {
+            grid = [];
+            revealedCount = 0;
+            flaggedCount = 0;
+            gameOver = false;
+            
+            // Create empty grid
+            for (let i = 0; i < gridSize * gridSize; i++) {
+                grid.push({
+                    isMine: false,
+                    revealed: false,
+                    flagged: false,
+                    neighborMines: 0
+                });
+            }
+            
+            // Place mines
+            let minesPlaced = 0;
+            while (minesPlaced < mineCount) {
+                const pos = Math.floor(Math.random() * grid.length);
+                if (!grid[pos].isMine) {
+                    grid[pos].isMine = true;
+                    minesPlaced++;
+                }
+            }
+            
+            // Calculate neighbor mines
+            for (let i = 0; i < grid.length; i++) {
+                if (!grid[i].isMine) {
+                    grid[i].neighborMines = countNeighborMines(i);
+                }
+            }
+            
+            renderMinesweeper();
+            updateStats();
+        }
+
+        function countNeighborMines(index) {
+            const row = Math.floor(index / gridSize);
+            const col = index % gridSize;
+            let count = 0;
+            
+            for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                    if (dr === 0 && dc === 0) continue;
+                    const newRow = row + dr;
+                    const newCol = col + dc;
+                    if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+                        const newIndex = newRow * gridSize + newCol;
+                        if (grid[newIndex].isMine) count++;
+                    }
+                }
+            }
+            return count;
+        }
+
+        function renderMinesweeper() {
+            const container = document.getElementById('minesweeperGrid');
+            container.innerHTML = '';
+            
+            grid.forEach((cell, index) => {
+                const cellDiv = document.createElement('div');
+                cellDiv.className = 'mine-cell';
+                cellDiv.onclick = () => revealCell(index);
+                cellDiv.oncontextmenu = (e) => {
+                    e.preventDefault();
+                    toggleFlag(index);
+                };
+                
+                if (cell.revealed) {
+                    cellDiv.classList.add('revealed');
+                    if (cell.isMine) {
+                        cellDiv.textContent = '💣';
+                        cellDiv.classList.add('mine');
+                    } else if (cell.neighborMines > 0) {
+                        cellDiv.textContent = cell.neighborMines;
+                        cellDiv.classList.add(`mine-number-${Math.min(cell.neighborMines, 4)}`);
+                    }
+                } else if (cell.flagged) {
+                    cellDiv.classList.add('flagged');
+                    cellDiv.textContent = '🚩';
+                }
+                
+                container.appendChild(cellDiv);
+            });
+        }
+
+        function revealCell(index) {
+            if (gameOver || grid[index].revealed || grid[index].flagged) return;
+            
+            grid[index].revealed = true;
+            
+            if (grid[index].isMine) {
+                gameOver = true;
+                revealAllMines();
+                setTimeout(() => {
+                    alert('💥 ¡Boom! Encontraste una mina. Intenta de nuevo.');
+                    initMinesweeper();
+                }, 500);
+                return;
+            }
+            
+            revealedCount++;
+            
+            // Auto-reveal neighbors if no mines nearby
+            if (grid[index].neighborMines === 0) {
+                revealNeighbors(index);
+            }
+            
+            renderMinesweeper();
+            updateStats();
+            checkWin();
+        }
+
+        function revealNeighbors(index) {
+            const row = Math.floor(index / gridSize);
+            const col = index % gridSize;
+            
+            for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                    if (dr === 0 && dc === 0) continue;
+                    const newRow = row + dr;
+                    const newCol = col + dc;
+                    if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+                        const newIndex = newRow * gridSize + newCol;
+                        if (!grid[newIndex].revealed && !grid[newIndex].flagged) {
+                            revealCell(newIndex);
+                        }
+                    }
+                }
+            }
+        }
+
+        function toggleFlag(index) {
+            if (gameOver || grid[index].revealed) return;
+            
+            grid[index].flagged = !grid[index].flagged;
+            flaggedCount += grid[index].flagged ? 1 : -1;
+            renderMinesweeper();
+            updateStats();
+        }
+
+        function revealAllMines() {
+            grid.forEach(cell => {
+                if (cell.isMine) {
+                    cell.revealed = true;
+                }
+            });
+            renderMinesweeper();
+        }
+
+        function updateStats() {
+            document.getElementById('minesLeft').textContent = mineCount - flaggedCount;
+            document.getElementById('safeCells').textContent = `${revealedCount}/${gridSize * gridSize - mineCount}`;
+        }
+
+        function checkWin() {
+            const totalSafeCells = gridSize * gridSize - mineCount;
+            if (revealedCount === totalSafeCells) {
+                gameOver = true;
+                grid.forEach(cell => {
+                    if (cell.isMine) {
+                        cell.revealed = true;
+                        cell.classList = 'safe';
+                    }
+                });
+                renderMinesweeper();
+                setTimeout(() => {
+                    goToScreen(6);
+                }, 800);
+            }
+        }
+
+        // Botón que se mueve
+        function moveButton() {
+            const button = document.getElementById('noButton');
+            const container = button.parentElement;
+            
+            attempts++;
+            document.getElementById('attempts').textContent = attempts;
+            
+            emojiSize += 0.5;
+            document.getElementById('growingEmoji').style.fontSize = emojiSize + 'em';
+            
+            const maxX = container.offsetWidth - button.offsetWidth - 40;
+            const maxY = container.offsetHeight - button.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            button.style.position = 'absolute';
+            button.style.left = randomX + 'px';
+            button.style.top = randomY + 'px';
+            
+            const messages = [
+                'Que haces flaca?',
+                '¿Te estas confundiendo de boton?',
+                'Olee',
+                'Toca el otro pls',
+                'Que hago me mato?',
+                'Dale, no rompas las bolas'
+            ];
+            
+            if (attempts <= messages.length) {
+                document.querySelector('#screen7 > .card > p').textContent = messages[attempts - 1];
+            }
+        }
+
+        // CELEBRATION!
+        function celebrate() {
+            playMusic();
+            createConfetti();
+            createFireworks();
+            
+            setTimeout(() => {
+                goToScreen(8);
+            }, 2000);
+        }
+
+        function playMusic() {
+            // Crear audio context y tocar una melodía celebratoria
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50]; // C, D, E, G, A, C
+            
+            notes.forEach((freq, i) => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = freq;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime + i * 0.15);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.15 + 0.3);
+                
+                oscillator.start(audioContext.currentTime + i * 0.15);
+                oscillator.stop(audioContext.currentTime + i * 0.15 + 0.3);
+            });
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#ff1493'];
+            const overlay = document.getElementById('celebrationOverlay');
+            
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * window.innerWidth + 'px';
+                    confetti.style.top = '-20px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animation = `confetti-fall ${2 + Math.random() * 2}s linear forwards`;
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    
+                    // Formas aleatorias
+                    if (Math.random() > 0.5) {
+                        confetti.style.borderRadius = '50%';
+                    }
+                    confetti.style.width = confetti.style.height = (5 + Math.random() * 10) + 'px';
+                    
+                    overlay.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 15);
+            }
+        }
+
+        function createFireworks() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500'];
+            const overlay = document.getElementById('celebrationOverlay');
+            
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const x = 20 + Math.random() * 60;
+                    const y = 20 + Math.random() * 40;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    for (let j = 0; j < 30; j++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'firework';
+                        particle.style.left = x + '%';
+                        particle.style.top = y + '%';
+                        particle.style.background = color;
+                        
+                        const angle = (j / 30) * Math.PI * 2;
+                        const velocity = 50 + Math.random() * 100;
+                        const xVel = Math.cos(angle) * velocity;
+                        const yVel = Math.sin(angle) * velocity;
+                        
+                        particle.style.setProperty('--x', xVel + 'px');
+                        particle.style.setProperty('--y', yVel + 'px');
+                        particle.style.animation = `firework-burst ${0.8 + Math.random() * 0.4}s ease-out forwards`;
+                        
+                        overlay.appendChild(particle);
+                        
+                        setTimeout(() => particle.remove(), 1500);
+                    }
+                }, i * 300);
+            }
+        }
+    </script>
+</body>
+</html>
